@@ -43,7 +43,7 @@ fn sort(unsorted_vec: Vec<i32>) -> SortedList {
     for i in unsorted_vec {
         sorted_list = insort(i, sorted_list);
     }
-    return sorted_list;
+    return SortedList::Cons(3, Box::new(sorted_list));
 }
 
 #[flux::trusted]
