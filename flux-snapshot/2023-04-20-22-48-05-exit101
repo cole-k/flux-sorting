@@ -1,0 +1,11 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[FLUX]: unsupported terminator
+  --> src/sort.rs:25:29
+   |
+25 |         while let Some(i) = iter.next() {
+   |                             ^^^^^^^^^^^
+   |
+   = note: Terminator { source_info: SourceInfo { span: src/sort.rs:25:29: 25:40 (#0), scope: scope[3] }, kind: _8 = <<T as std::iter::IntoIterator>::IntoIter as std::iter::Iterator>::next(move _9) -> [return: bb4, unwind: bb18] }
+
+error: could not compile `sorting` (bin "sorting") due to previous error
