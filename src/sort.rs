@@ -39,7 +39,7 @@ pub fn make_descending_range(hi: i32, lo: i32) -> List {
         List::Cons(hi, Box::new(List::Nil))
     } else {
         let smaller_values = make_descending_range(hi - 1, lo);
-        List::Cons(hi, Box::new(bigger_values))
+        List::Cons(hi, Box::new(smaller_values))
     }
 }
 
