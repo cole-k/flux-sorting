@@ -1,0 +1,15 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0425]: cannot find value `one` in this scope
+   --> src/insertion_sort.rs:18:44
+    |
+18  |     let one = SortedList::Cons(1, Box::new(one));
+    |                                            ^^^ help: a unit variant with a similar name exists: `None`
+    |
+   ::: /Users/cole/.rustup/toolchains/nightly-2023-04-05-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/option.rs:568:5
+    |
+568 |     None,
+    |     ---- similarly named unit variant `None` defined here
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `sorting` (bin "sorting") due to previous error
