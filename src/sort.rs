@@ -103,28 +103,31 @@ pub fn len(list: &List) -> usize {
 
 #[flux::sig(fn(&List[@n]) -> {(List[#m1], List[#m2]) | m1 + m2 == n && m1 - m2 <= 1})]
 pub fn halve(list: &List) -> (List, List) {
+    let mut current = list;
     let mut i = len(list);
     let midpoint = i / 2;
     let mut l1 = List::Nil;
     let mut l2 = List::Nil;
     while i > midpoint {
-        match list {
+        match current {
             List::Nil => {
                 return impossible(0);
             }
             List::Cons(k, next) => {
                 l1 = List::Cons(*k, Box::new(l1));
+                current = next;
             }
         }
         i -= 1;
     }
     while i > 0 {
-        match list {
+        match current {
             List::Nil => {
                 return impossible(0);
             }
             List::Cons(k, next) => {
                 l2 = List::Cons(*k, Box::new(l2));
+                current = next;
             }
         }
         i -= 1;
@@ -159,8 +162,17 @@ pub fn merge_sort(unsorted_list: &List) -> SortedList {
 
 #[flux::trusted]
 pub fn print_sorted_list(mut l: &SortedList) {
-    println!("printing list");
+    println!("printing sorted list");
     while let SortedList::Cons(v, next) = l {
+        l = next;
+        println!("value: {:?}", *v);
+    }
+}
+
+#[flux::trusted]
+pub fn print_list(mut l: &List) {
+    println!("printing list");
+    while let List::Cons(v, next) = l {
         l = next;
         println!("value: {:?}", *v);
     }

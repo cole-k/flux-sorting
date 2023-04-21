@@ -12,6 +12,9 @@ fn main() {
     // print_list(&range);
     // let some_list= List::from_iter([5, 12, 5, 2, 3, 1, 9, 2, 10].iter());
     let some_list = make_descending_range(10, 0);
-    print_sorted_list(&insertion_sort(&some_list));
+    let (l1, l2) = halve(&some_list);
+    print_list(&l1);
+    print_list(&l2);
+    // print_sorted_list(&insertion_sort(&some_list));
     // print_sorted_list(&merge_sort(&vec!(5, 12, 5, 2, 3, 1, 9, 2, 10)));
 }
