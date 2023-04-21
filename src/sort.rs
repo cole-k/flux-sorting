@@ -7,7 +7,7 @@
 #[flux::refined_by(min: int)]
 #[derive(Debug)]
 pub enum SortedList {
-    #[flux::variant(SortedList[i32::MAX, 0])]
+    #[flux::variant(SortedList[i32::MAX])]
     Nil,
     #[flux::variant((i32[@k], Box<SortedList{v: v >= k}>) -> SortedList[k])]
     Cons(i32, Box<SortedList>)

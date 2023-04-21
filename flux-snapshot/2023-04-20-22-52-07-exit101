@@ -1,0 +1,11 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[FLUX]: cannot resolve `SortedList`
+  --> src/sort.rs:20:31
+   |
+20 |     #[flux::variant((i32, Box<SortedList[@len]>) -> SortedList[len + 1])]
+   |                               ^^^^^^^^^^
+   |
+   = help: flux can only resolve a path if it is present in the definition being refined
+
+error: could not compile `sorting` (bin "sorting") due to previous error
