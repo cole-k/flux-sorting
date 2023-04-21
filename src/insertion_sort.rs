@@ -1,3 +1,9 @@
+#![flux::defs {
+    fn min(x: int, y: int) {
+        if x < y { x } else { y }
+    }
+}]
+
 #[flux::refined_by(min: int)]
 #[derive(Debug)]
 pub enum SortedList {
@@ -17,12 +23,12 @@ pub fn make_range(lo: i32, hi: i32) -> SortedList {
     }
 }
 
-#[flux::sig(fn(i32[@n], list: SortedList[@k]) -> SortedList{v: v <= k && v <= n})]
+#[flux::sig(fn(i32[@n], list: SortedList[@k]) -> SortedList[min(n, k)])]
 fn insort(n: i32, list: SortedList) -> SortedList {
    match list {
        SortedList::Nil => SortedList::Cons(n, Box::new(SortedList::Nil)),
        SortedList::Cons(k, next) => {
-           if n > k {
+           if k < n {
                SortedList::Cons(k, Box::new(insort(n, *next)))
            } else {
                SortedList::Cons(n, Box::new(SortedList::Cons(k, next)))
