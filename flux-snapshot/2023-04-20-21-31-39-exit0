@@ -1,0 +1,18 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: function `insort` is never used
+  --> src/insertion_sort.rs:27:4
+   |
+27 | fn insort(n: i32, list: SortedList) -> SortedList {
+   |    ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: function `sort` is never used
+  --> src/insertion_sort.rs:41:4
+   |
+41 | fn sort(unsorted_vec: Vec<i32>) -> SortedList {
+   |    ^^^^
+
+warning: `sorting` (bin "sorting") generated 2 warnings
+    Finished dev [unoptimized + debuginfo] target(s) in 1.33s

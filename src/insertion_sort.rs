@@ -37,6 +37,15 @@ fn insort(n: i32, list: SortedList) -> SortedList {
    }
 }
 
+#[flux::sig(fn(Vec<i32>) -> SortedList)]
+fn sort(unsorted_vec: Vec<i32>) -> SortedList {
+    let mut sorted_list = SortedList::Nil;
+    for i in unsorted_vec {
+        sorted_list = insort(i, sorted_list);
+    }
+    return sorted_list;
+}
+
 #[flux::trusted]
 pub fn print_list(mut l: &SortedList) {
     println!("printing list");
