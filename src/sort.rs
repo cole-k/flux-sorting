@@ -33,8 +33,8 @@ impl<'a> FromIterator<&'a i32> for List {
     }
 }
 
-#[flux::sig(fn(&List[@n]) -> Option<i32, &List[n-1]>)]
-pub fn list_next(list: &List) -> Option<i32, &List> {
+#[flux::sig(fn(&List[@n]) -> Option<(i32, &List[n-1])>)]
+pub fn list_next(list: &List) -> Option<(i32, &List)> {
     match list {
         List::Nil => None,
         List::Cons(i, next) => Some((*i, next)),
