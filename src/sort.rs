@@ -70,13 +70,10 @@ fn insort(n: i32, list: SortedList) -> SortedList {
 
 #[flux::sig(fn(&List[@n]) -> SortedList[#k, n])]
 pub fn insertion_sort(unsorted_list: &List) -> SortedList {
-    let mut list = unsorted_list;
-    let mut sorted_list = SortedList::Nil;
-    while let List::Cons(i, next) = list {
-        list = next;
-        sorted_list = insort(*i, sorted_list);
+    match unsorted_list {
+        List::Nil => SortedList::Nil,
+        List::Cons(i, next) => insort(i, insertion_sort(next)),
     }
-    sorted_list
 }
 
 // #[flux::sig(fn(SortedList[@k1], SortedList[@k2]) -> SortedList[min(k1, k2)])]
