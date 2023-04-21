@@ -70,10 +70,17 @@ fn insort(n: i32, list: SortedList) -> SortedList {
 
 #[flux::sig(fn(&List[@n]) -> SortedList[#k, n])]
 pub fn insertion_sort(unsorted_list: &List) -> SortedList {
-    match unsorted_list {
-        List::Nil => SortedList::Nil,
-        List::Cons(i, next) => insort(*i, insertion_sort(next)),
+    // match unsorted_list {
+    //     List::Nil => SortedList::Nil,
+    //     List::Cons(i, next) => insort(*i, insertion_sort(next)),
+    // }
+    let mut current = unsorted_list;
+    let mut sorted_list = SortedList::Nil;
+    while let List::Cons(i, next) = current {
+        current = next;
+        sorted_list = SortedList::Cons(*i, Box::new(sorted_list));
     }
+    sorted_list
 }
 
 #[flux::sig(fn(SortedList[@k1, @len1], SortedList[@k2, @len2]) -> SortedList[min(k1, k2), len1 + len2])]
@@ -111,8 +118,7 @@ pub fn halve(list: &List) -> (List, List) {
     while i > midpoint {
         match current {
             List::Nil => {
-                return unreachable!();
-                // return impossible();
+                return impossible();
             }
             List::Cons(k, next) => {
                 l1 = List::Cons(*k, Box::new(l1));
@@ -124,8 +130,7 @@ pub fn halve(list: &List) -> (List, List) {
     while i > 0 {
         match current {
             List::Nil => {
-                return unreachable!();
-                // return impossible();
+                return impossible();
             }
             List::Cons(k, next) => {
                 l2 = List::Cons(*k, Box::new(l2));

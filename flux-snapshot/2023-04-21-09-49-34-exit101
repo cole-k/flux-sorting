@@ -1,0 +1,60 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: function `insort` is never used
+  --> src/sort.rs:58:4
+   |
+58 | fn insort(n: i32, list: SortedList) -> SortedList {
+   |    ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: function `insertion_sort` is never used
+  --> src/sort.rs:72:8
+   |
+72 | pub fn insertion_sort(unsorted_list: &List) -> SortedList {
+   |        ^^^^^^^^^^^^^^
+
+warning: function `merge` is never used
+  --> src/sort.rs:87:4
+   |
+87 | fn merge(list1: SortedList, list2: SortedList) -> SortedList {
+   |    ^^^^^
+
+warning: function `merge_sort` is never used
+   --> src/sort.rs:151:8
+    |
+151 | pub fn merge_sort(unsorted_list: &List) -> SortedList {
+    |        ^^^^^^^^^^
+
+warning: function `print_sorted_list` is never used
+   --> src/sort.rs:171:8
+    |
+171 | pub fn print_sorted_list(mut l: &SortedList) {
+    |        ^^^^^^^^^^^^^^^^^
+
+error[FLUX]: precondition might not hold
+  --> src/sort.rs:81:23
+   |
+81 |         sorted_list = SortedList::Cons(*i, Box::new(sorted_list));
+   |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[FLUX]: postcondition might not hold
+  --> src/sort.rs:83:5
+   |
+83 |     sorted_list
+   |     ^^^^^^^^^^^
+
+error[FLUX]: postcondition might not hold
+   --> src/sort.rs:143:2
+    |
+143 | }
+    |  ^
+
+error[FLUX]: precondition might not hold
+   --> src/sort.rs:157:24
+    |
+157 |                 return SortedList::Cons(*i, Box::new(SortedList::Nil));
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `sorting` (bin "sorting") generated 5 warnings
+error: could not compile `sorting` (bin "sorting") due to 4 previous errors; 5 warnings emitted
