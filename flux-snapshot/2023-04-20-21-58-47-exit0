@@ -1,0 +1,49 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: variants `Nil` and `Cons` are never constructed
+  --> src/sort.rs:11:5
+   |
+9  | pub enum SortedList {
+   |          ---------- variants in this enum
+10 |     #[flux::variant(SortedList[i32::MAX])]
+11 |     Nil,
+   |     ^^^
+12 |     #[flux::variant((i32[@k], Box<SortedList{v: v >= k}>) -> SortedList[k])]
+13 |     Cons(i32, Box<SortedList>)
+   |     ^^^^
+   |
+   = note: `SortedList` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` on by default
+
+warning: function `make_range` is never used
+  --> src/sort.rs:17:8
+   |
+17 | pub fn make_range(lo: i32, hi: i32) -> SortedList {
+   |        ^^^^^^^^^^
+
+warning: function `insort` is never used
+  --> src/sort.rs:27:4
+   |
+27 | fn insort(n: i32, list: SortedList) -> SortedList {
+   |    ^^^^^^
+
+warning: function `merge` is never used
+  --> src/sort.rs:41:4
+   |
+41 | fn merge(list1: SortedList, list2: SortedList) -> SortedList {
+   |    ^^^^^
+
+warning: function `insertion_sort` is never used
+  --> src/sort.rs:57:8
+   |
+57 | pub fn insertion_sort(unsorted_vec: &Vec<i32>) -> SortedList {
+   |        ^^^^^^^^^^^^^^
+
+warning: function `print_list` is never used
+  --> src/sort.rs:66:8
+   |
+66 | pub fn print_list(mut l: &SortedList) {
+   |        ^^^^^^^^^^
+
+warning: `sorting` (bin "sorting") generated 6 warnings
+    Finished dev [unoptimized + debuginfo] target(s) in 0.68s
