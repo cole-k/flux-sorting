@@ -68,7 +68,7 @@ fn insort(n: i32, list: SortedList) -> SortedList {
    }
 }
 
-#[flux::sig(fn(&List[@n]) -> SortedList[#k, n])]
+#[flux::sig(fn(&List[@n]) -> SortedList[#k, #m])]
 pub fn insertion_sort(unsorted_list: &List) -> SortedList {
     let mut list = unsorted_list;
     let mut sorted_list = SortedList::Nil;
