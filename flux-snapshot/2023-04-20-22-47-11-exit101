@@ -1,0 +1,18 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0308]: mismatched types
+  --> src/sort.rs:24:19
+   |
+22 |     fn from_iter<T: IntoIterator<Item = &'a i32>>(iter: T) -> Self {
+   |                  - this type parameter
+23 |         let mut list = List::Nil;
+24 |         while let Some(i) = iter {
+   |                   ^^^^^^^   ---- this expression has type `T`
+   |                   |
+   |                   expected type parameter `T`, found `Option<_>`
+   |
+   = note: expected type parameter `T`
+                        found enum `std::option::Option<_>`
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `sorting` (bin "sorting") due to previous error
