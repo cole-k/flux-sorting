@@ -1,0 +1,18 @@
+    Updating crates.io index
+   Compiling proc-macro2 v1.0.56
+   Compiling quote v1.0.26
+   Compiling unicode-ident v1.0.8
+   Compiling syn v1.0.109
+   Compiling flux-attrs v0.1.0 (/Users/cole/git/flux/flux-attrs)
+   Compiling flux-attrs-proc-macros v0.1.0 (/Users/cole/git/flux/flux-attrs-proc-macros)
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: enum `SortedList` is never used
+ --> src/insertion_sort.rs:2:6
+  |
+2 | enum SortedList {
+  |      ^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: `sorting` (bin "sorting") generated 1 warning
+    Finished dev [unoptimized + debuginfo] target(s) in 14.31s
