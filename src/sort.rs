@@ -71,7 +71,7 @@ pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
     // list and the same list.
     if unsorted_slice.len() == 1 {
         if let Some(k) = unsorted_slice.get(0) {
-            return SortedList::Cons(k, Box::new(SortedList::Nil));
+            return SortedList::Cons(*k, Box::new(SortedList::Nil));
         }
     }
     let (first_half, second_half) = unsorted_slice.split_at(unsorted_slice.len() / 2);
