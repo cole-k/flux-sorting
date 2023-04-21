@@ -32,8 +32,10 @@ fn _simple_test_ok() {
     let _zero = SortedList::Cons(0, Box::new(_one));
 }
 
-fn _simple_test_fail() {
-    let _one = SortedList::Cons(1, Box::new(SortedList::Nil));
-    let _two = SortedList::Cons(2, Box::new(_one));
-    let _zero = SortedList::Cons(0, Box::new(_two));
-}
+// Leaving this commented out so that I only get an error code if there's an actual failure.
+//
+// fn _simple_test_fail() {
+//     let _one = SortedList::Cons(1, Box::new(SortedList::Nil));
+//     let _two = SortedList::Cons(2, Box::new(_one));
+//     let _zero = SortedList::Cons(0, Box::new(_two));
+// }
