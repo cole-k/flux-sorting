@@ -1,0 +1,12 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: function `make_descending_range` is never used
+  --> src/sort.rs:37:8
+   |
+37 | pub fn make_descending_range(hi: i32, lo: i32) -> List {
+   |        ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: `sorting` (bin "sorting") generated 1 warning
+    Finished dev [unoptimized + debuginfo] target(s) in 0.71s
