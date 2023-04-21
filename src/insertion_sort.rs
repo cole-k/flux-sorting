@@ -19,7 +19,16 @@ pub fn make_range(lo: i32, hi: i32) -> SortedList {
 
 #[flux::sig(fn(i32[@n], list: SortedList[@k]) -> SortedList{v: v <= k && v <= n})]
 fn insort(n: i32, list: SortedList) -> SortedList {
-    SortedList::Nil
+   match list {
+       SortedList::Nil => SortedList::Cons(n, Box::new(SortedList::Nil)),
+       SortedList::Cons(k, next) => {
+           if n > k {
+               insort(n, *next)
+           } else {
+               SortedList::Cons(n, list)
+           }
+       }
+   }
 }
 
 #[flux::trusted]
