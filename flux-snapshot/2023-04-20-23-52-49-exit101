@@ -1,0 +1,48 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: function `insort` is never used
+  --> src/sort.rs:58:4
+   |
+58 | fn insort(n: i32, list: SortedList) -> SortedList {
+   |    ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: function `insertion_sort` is never used
+  --> src/sort.rs:72:8
+   |
+72 | pub fn insertion_sort(unsorted_list: &List) -> SortedList {
+   |        ^^^^^^^^^^^^^^
+
+warning: function `merge` is never used
+  --> src/sort.rs:80:4
+   |
+80 | fn merge(list1: SortedList, list2: SortedList) -> SortedList {
+   |    ^^^^^
+
+warning: function `merge_sort` is never used
+   --> src/sort.rs:144:8
+    |
+144 | pub fn merge_sort(unsorted_list: &List) -> SortedList {
+    |        ^^^^^^^^^^
+
+warning: function `print_sorted_list` is never used
+   --> src/sort.rs:164:8
+    |
+164 | pub fn print_sorted_list(mut l: &SortedList) {
+    |        ^^^^^^^^^^^^^^^^^
+
+error[FLUX]: postcondition might not hold
+   --> src/sort.rs:136:2
+    |
+136 | }
+    |  ^
+
+error[FLUX]: precondition might not hold
+   --> src/sort.rs:150:36
+    |
+150 |                List::Nil => return SortedList::Cons(*i, Box::new(SortedList::Nil)),
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `sorting` (bin "sorting") generated 5 warnings
+error: could not compile `sorting` (bin "sorting") due to 2 previous errors; 5 warnings emitted
