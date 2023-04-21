@@ -1,29 +1,38 @@
 #[flux::refined_by(k: int)]
-enum DescendingList {
-    #[flux::variant(DescendingList[0])]
+#[derive(Debug)]
+pub enum SortedList {
+    #[flux::variant(SortedList[i32::MAX])]
     Nil,
-    #[flux::variant((u32[@k], Box<DescendingList{v: v <= k}>) -> DescendingList[k])]
-    Cons(u32, Box<DescendingList>)
+    #[flux::variant((i32[@k], Box<SortedList{v: v >= k}>) -> SortedList[k])]
+    Cons(i32, Box<SortedList>)
 }
 
-#[flux::sig(fn(hi: u32, lo: u32{lo <= hi}) -> DescendingList[hi])]
-fn make_range(hi: u32, lo: u32) -> DescendingList {
-    if hi == lo {
-        DescendingList::Cons(hi, Box::new(DescendingList::Nil))
+#[flux::sig(fn(lo: i32, hi: i32{lo <= hi}) -> SortedList[lo])]
+pub fn make_range(lo: i32, hi: i32) -> SortedList {
+    if lo == hi {
+        SortedList::Cons(lo, Box::new(SortedList::Nil))
     } else {
-        let smaller_values = make_range(hi - 1, lo);
-        DescendingList::Cons(hi, Box::new(smaller_values))
+        let bigger_values = make_range(lo + 1, hi);
+        SortedList::Cons(lo, Box::new(bigger_values))
+    }
+}
+
+pub fn print_list(mut l: &SortedList) {
+    println!("printing list");
+    while let SortedList::Cons(v, next) = l {
+        l = next;
+        println!("value: {:?}", *v);
     }
 }
 
 fn _simple_test_ok() {
-    let _zero = DescendingList::Cons(0, Box::new(DescendingList::Nil));
-    let _one = DescendingList::Cons(1, Box::new(_zero));
-    let _two = DescendingList::Cons(2, Box::new(_one));
+    let _two = SortedList::Cons(2, Box::new(SortedList::Nil));
+    let _one = SortedList::Cons(1, Box::new(_two));
+    let _zero = SortedList::Cons(0, Box::new(_one));
 }
 
 fn _simple_test_fail() {
-    let _zero = DescendingList::Cons(0, Box::new(DescendingList::Nil));
-    let _two = DescendingList::Cons(2, Box::new(_zero));
-    let _one = DescendingList::Cons(1, Box::new(_two));
+    let _one = SortedList::Cons(1, Box::new(SortedList::Nil));
+    let _two = SortedList::Cons(2, Box::new(_one));
+    let _zero = SortedList::Cons(0, Box::new(_two));
 }
