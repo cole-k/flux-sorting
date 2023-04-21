@@ -21,7 +21,7 @@ pub enum List {
 impl<'a> FromIterator<&'a i32> for List {
     fn from_iter<T: IntoIterator<Item = &'a i32>>(iter: T) -> Self {
         let mut list = List::Nil;
-        while let Some(i) = iter {
+        while let Some(i) = iter.next() {
             list = List::Cons(*i, Box::new(list));
         }
         return list;

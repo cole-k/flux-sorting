@@ -1,0 +1,19 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0599]: no method named `next` found for type parameter `T` in the current scope
+  --> src/sort.rs:24:34
+   |
+22 |     fn from_iter<T: IntoIterator<Item = &'a i32>>(iter: T) -> Self {
+   |                  - method `next` not found for this type parameter
+23 |         let mut list = List::Nil;
+24 |         while let Some(i) = iter.next() {
+   |                                  ^^^^ method not found in `T`
+   |
+   = help: items from traits can only be used if the type parameter is bounded by the trait
+help: the following trait defines an item `next`, perhaps you need to restrict type parameter `T` with it:
+   |
+22 |     fn from_iter<T: IntoIterator<Item = &'a i32> + std::iter::Iterator>(iter: T) -> Self {
+   |                                                  +++++++++++++++++++++
+
+For more information about this error, try `rustc --explain E0599`.
+error: could not compile `sorting` (bin "sorting") due to previous error
