@@ -1,0 +1,22 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0308]: mismatched types
+  --> src/sort.rs:73:33
+   |
+73 |         return SortedList::Cons(unsorted_slice.get(0).unwrap(), Box::new(SortedList::Nil));
+   |                ---------------- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `i32`, found `&i32`
+   |                |
+   |                arguments to this enum variant are incorrect
+   |
+note: tuple variant defined here
+  --> src/sort.rs:13:5
+   |
+13 |     Cons(i32, Box<SortedList>)
+   |     ^^^^
+help: consider dereferencing the borrow
+   |
+73 |         return SortedList::Cons(*unsorted_slice.get(0).unwrap(), Box::new(SortedList::Nil));
+   |                                 +
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `sorting` (bin "sorting") due to previous error
