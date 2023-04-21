@@ -12,18 +12,18 @@ fn make_range(hi: u32, lo: u32) -> DescendingList {
         DescendingList::Cons(hi, Box::new(DescendingList::Nil))
     } else {
         let smaller_values = make_range(hi - 1, lo);
-        DescendlingList::Cons(hi, Box::new(smaller_values))
+        DescendingList::Cons(hi, Box::new(smaller_values))
     }
 }
 
 fn _simple_test_ok() {
     let _zero = DescendingList::Cons(0, Box::new(DescendingList::Nil));
-    let _one = DescendingList::Cons(1, Box::new(zero));
-    let _two = DescendingList::Cons(2, Box::new(one));
+    let _one = DescendingList::Cons(1, Box::new(_zero));
+    let _two = DescendingList::Cons(2, Box::new(_one));
 }
 
 fn _simple_test_fail() {
     let _zero = DescendingList::Cons(0, Box::new(DescendingList::Nil));
-    let _two = DescendingList::Cons(2, Box::new(zero));
-    let _one = DescendingList::Cons(1, Box::new(two));
+    let _two = DescendingList::Cons(2, Box::new(_zero));
+    let _one = DescendingList::Cons(1, Box::new(_two));
 }
