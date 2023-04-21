@@ -17,6 +17,7 @@ pub fn make_range(lo: i32, hi: i32) -> SortedList {
     }
 }
 
+#[flux::trusted]
 pub fn print_list(mut l: &SortedList) {
     println!("printing list");
     while let SortedList::Cons(v, next) = l {
