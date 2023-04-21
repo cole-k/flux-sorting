@@ -1,19 +1,29 @@
 #[flux::refined_by(k: int)]
-enum SortedList {
-    #[flux::variant(SortedList[0])]
+enum DescendingList {
+    #[flux::variant(DescendingList[0])]
     Nil,
-    #[flux::variant((u32[@k], Box<SortedList{v: v <= k}>) -> SortedList[k])]
-    Cons(u32, Box<SortedList>)
+    #[flux::variant((u32[@k], Box<DescendingList{v: v <= k}>) -> DescendingList[k])]
+    Cons(u32, Box<DescendingList>)
 }
 
-fn simple_test_ok() {
-    let zero = SortedList::Cons(0, Box::new(SortedList::Nil));
-    let one = SortedList::Cons(1, Box::new(zero));
-    let two = SortedList::Cons(2, Box::new(one));
+#[flux::sig((hi: u32, lo: u32{lo <= hi}) -> DescendingList[hi])]
+fn make_range(hi: u32, lo: u32) -> DescendingList {
+    if hi == lo {
+        DescendingList::Cons(hi, Box::new(DescendingList::Nil))
+    } else {
+        let smaller_values = make_range(hi - 1, lo);
+        DescendlingList::Cons(hi, Box::new(smaller_values))
+    }
 }
 
-fn simple_test_fail() {
-    let zero = SortedList::Cons(0, Box::new(SortedList::Nil));
-    let two = SortedList::Cons(2, Box::new(zero));
-    let one = SortedList::Cons(1, Box::new(two));
+fn _simple_test_ok() {
+    let _zero = DescendingList::Cons(0, Box::new(DescendingList::Nil));
+    let _one = DescendingList::Cons(1, Box::new(zero));
+    let _two = DescendingList::Cons(2, Box::new(one));
+}
+
+fn _simple_test_fail() {
+    let _zero = DescendingList::Cons(0, Box::new(DescendingList::Nil));
+    let _two = DescendingList::Cons(2, Box::new(zero));
+    let _one = DescendingList::Cons(1, Box::new(two));
 }

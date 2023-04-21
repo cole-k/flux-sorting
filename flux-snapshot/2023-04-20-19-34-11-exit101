@@ -1,0 +1,43 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0425]: cannot find value `zero` in this scope
+  --> src/insertion_sort.rs:21:49
+   |
+21 |     let _one = DescendingList::Cons(1, Box::new(zero));
+   |                                                 ^^^^ help: a local variable with a similar name exists: `_zero`
+
+error[E0425]: cannot find value `one` in this scope
+   --> src/insertion_sort.rs:22:49
+    |
+22  |     let _two = DescendingList::Cons(2, Box::new(one));
+    |                                                 ^^^ help: a unit variant with a similar name exists: `None`
+    |
+   ::: /Users/cole/.rustup/toolchains/nightly-2023-04-05-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/option.rs:568:5
+    |
+568 |     None,
+    |     ---- similarly named unit variant `None` defined here
+
+error[E0425]: cannot find value `zero` in this scope
+  --> src/insertion_sort.rs:27:49
+   |
+27 |     let _two = DescendingList::Cons(2, Box::new(zero));
+   |                                                 ^^^^ help: a local variable with a similar name exists: `_zero`
+
+error[E0425]: cannot find value `two` in this scope
+  --> src/insertion_sort.rs:28:49
+   |
+28 |     let _one = DescendingList::Cons(1, Box::new(two));
+   |                                                 ^^^ help: a local variable with a similar name exists: `_two`
+
+error[E0433]: failed to resolve: use of undeclared type `DescendlingList`
+  --> src/insertion_sort.rs:15:9
+   |
+15 |         DescendlingList::Cons(hi, Box::new(smaller_values))
+   |         ^^^^^^^^^^^^^^^
+   |         |
+   |         use of undeclared type `DescendlingList`
+   |         help: an enum with a similar name exists: `DescendingList`
+
+Some errors have detailed explanations: E0425, E0433.
+For more information about an error, try `rustc --explain E0425`.
+error: could not compile `sorting` (bin "sorting") due to 5 previous errors
