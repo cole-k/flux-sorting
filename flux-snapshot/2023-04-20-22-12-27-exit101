@@ -1,0 +1,24 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: function `make_range` is never used
+  --> src/sort.rs:17:8
+   |
+17 | pub fn make_range(lo: i32, hi: i32) -> SortedList {
+   |        ^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+error[FLUX]: assertion might fail: possible out-of-bounds access
+  --> src/sort.rs:73:33
+   |
+73 |         return SortedList::Cons(unsorted_slice[0], Box::new(SortedList::Nil));
+   |                                 ^^^^^^^^^^^^^^^^^
+
+error[FLUX]: precondition might not hold
+  --> src/sort.rs:73:16
+   |
+73 |         return SortedList::Cons(unsorted_slice[0], Box::new(SortedList::Nil));
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `sorting` (bin "sorting") generated 1 warning
+error: could not compile `sorting` (bin "sorting") due to 2 previous errors; 1 warning emitted
