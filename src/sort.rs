@@ -135,7 +135,6 @@ pub fn halve(list: &List) -> (List, List) {
     (l1, l2)
 }
 
-#[flux::trusted]
 #[flux::sig(fn() -> {(List, List) | false})]
 fn impossible() -> (List, List) {
     unreachable!()
@@ -153,7 +152,8 @@ pub fn merge_sort(unsorted_list: &List) -> SortedList {
            }
         }
     };
-    panic!()
+    let (l1, l2) = halve(unsorted_list);
+    merge(merge_sort(&l1), merge_sort(&l2))
     // if unsorted_list.len() == 1 {
     //     return SortedList::Cons(unsafe_head(unsorted_list), Box::new(SortedList::Nil));
     // }
