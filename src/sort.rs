@@ -39,7 +39,7 @@ pub fn make_ascending_range(lo: i32, hi: i32) -> SortedList {
     if lo == hi {
         SortedList::Cons(lo, Box::new(SortedList::Nil))
     } else {
-        let bigger_values = make_range(lo + 1, hi);
+        let bigger_values = make_ascending_range(lo + 1, hi);
         SortedList::Cons(lo, Box::new(bigger_values))
     }
 }
