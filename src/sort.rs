@@ -4,17 +4,20 @@
     }
 }]
 
-#[flux::refined_by(min: int)]
+#[flux::refined_by(min: int, len: int)]
 #[derive(Debug)]
 pub enum SortedList {
-    #[flux::variant(SortedList[i32::MAX])]
+    #[flux::variant(SortedList[i32::MAX, 0])]
     Nil,
-    #[flux::variant((i32[@k], Box<SortedList{v: v >= k}>) -> SortedList[k])]
+    #[flux::variant((i32[@k], Box<SortedList[{v: v >= k}, @len]>) -> SortedList[k, len + 1])]
     Cons(i32, Box<SortedList>)
 }
 
+#[flux::refined_by(len: int)]
 pub enum List {
+    #[flux::variant(List[0])]
     Nil,
+    #[flux::variant((i32, Box<SortedList[@len]>) -> SortedList[len + 1])]
     Cons(i32, Box<List>),
 }
 
@@ -32,7 +35,7 @@ impl<'a> FromIterator<&'a i32> for List {
 
 #[allow(dead_code)]
 #[flux::sig(fn(lo: i32, hi: i32{lo <= hi && hi <= i32::MAX}) -> SortedList[lo])]
-pub fn make_range(lo: i32, hi: i32) -> SortedList {
+pub fn make_ascending_range(lo: i32, hi: i32) -> SortedList {
     if lo == hi {
         SortedList::Cons(lo, Box::new(SortedList::Nil))
     } else {
