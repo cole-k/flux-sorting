@@ -69,8 +69,10 @@ pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
     }
     // Needed to prevent an infinite recursion when we split and get an empty
     // list and the same list.
-    if unsorted_slice.len() == 1 && let Some(k) = unsorted_slice.get(0) {
-        return SortedList::Cons(k, Box::new(SortedList::Nil));
+    if unsorted_slice.len() == 1 {
+        if let Some(k) = unsorted_slice.get(0) {
+            return SortedList::Cons(k, Box::new(SortedList::Nil));
+        }
     }
     let (first_half, second_half) = unsorted_slice.split_at(unsorted_slice.len() / 2);
     merge(merge_sort(first_half), merge_sort(second_half))
