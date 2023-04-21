@@ -15,5 +15,5 @@ fn simple_test_ok() {
 fn simple_test_fail() {
     let zero = SortedList::Cons(0, Box::new(SortedList::Nil));
     let two = SortedList::Cons(2, Box::new(zero));
-    let one = SortedList::Cons(1, Box::new(one));
+    let one = SortedList::Cons(1, Box::new(two));
 }
