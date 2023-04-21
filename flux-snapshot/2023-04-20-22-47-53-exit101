@@ -1,0 +1,15 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0596]: cannot borrow `iter` as mutable, as it is not declared as mutable
+  --> src/sort.rs:25:29
+   |
+25 |         while let Some(i) = iter.next() {
+   |                             ^^^^^^^^^^^ cannot borrow as mutable
+   |
+help: consider changing this to be mutable
+   |
+24 |         let mut iter = iter.into_iter();
+   |             +++
+
+For more information about this error, try `rustc --explain E0596`.
+error: could not compile `sorting` (bin "sorting") due to previous error
