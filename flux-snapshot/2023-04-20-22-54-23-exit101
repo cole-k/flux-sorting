@@ -1,0 +1,23 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: function `make_descending_range` is never used
+  --> src/sort.rs:37:8
+   |
+37 | pub fn make_descending_range(hi: i32, lo: i32) -> List {
+   |        ^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+error[FLUX]: postcondition might not hold
+  --> src/sort.rs:38:5
+   |
+38 | /     if hi == lo {
+39 | |         List::Cons(hi, Box::new(List::Nil))
+40 | |     } else {
+41 | |         let smaller_values = make_descending_range(hi - 1, lo);
+42 | |         List::Cons(hi, Box::new(smaller_values))
+43 | |     }
+   | |_____^
+
+warning: `sorting` (bin "sorting") generated 1 warning
+error: could not compile `sorting` (bin "sorting") due to previous error; 1 warning emitted

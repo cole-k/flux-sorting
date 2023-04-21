@@ -33,7 +33,7 @@ impl<'a> FromIterator<&'a i32> for List {
     }
 }
 
-#[flux::sig(fn(hi: i32, lo: i32{lo <= hi && hi <= i32::MAX}) -> List[1 + hi - lo])]
+#[flux::sig(fn(hi: i32, lo: i32{lo <= hi && hi <= i32::MAX}) -> List[hi - lo])]
 pub fn make_descending_range(hi: i32, lo: i32) -> List {
     if hi == lo {
         List::Cons(hi, Box::new(List::Nil))
