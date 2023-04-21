@@ -1,0 +1,26 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: unused variable: `two`
+  --> src/insertion_sort.rs:12:9
+   |
+12 |     let two = SortedList::Cons(2, Box::new(one));
+   |         ^^^ help: if this is intentional, prefix it with an underscore: `_two`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: enum `SortedList` is never used
+ --> src/insertion_sort.rs:2:6
+  |
+2 | enum SortedList {
+  |      ^^^^^^^^^^
+  |
+  = note: `#[warn(dead_code)]` on by default
+
+warning: function `simple_test` is never used
+ --> src/insertion_sort.rs:9:4
+  |
+9 | fn simple_test() {
+  |    ^^^^^^^^^^^
+
+warning: `sorting` (bin "sorting") generated 3 warnings (run `cargo fix --bin "sorting"` to apply 1 suggestion)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.06s

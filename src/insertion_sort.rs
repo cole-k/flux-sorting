@@ -7,7 +7,7 @@ enum SortedList {
 }
 
 fn simple_test() {
-    let zero = Cons(0, Box::new(Nil));
-    let one = Cons(1, Box::new(zero));
-    let two = Cons(2, Box::new(one));
+    let zero = SortedList::Cons(0, Box::new(SortedList::Nil));
+    let one = SortedList::Cons(1, Box::new(zero));
+    let two = SortedList::Cons(2, Box::new(one));
 }
