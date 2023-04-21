@@ -147,7 +147,7 @@ pub fn merge_sort(unsorted_list: &List) -> SortedList {
         List::Nil => return SortedList::Nil,
         List::Cons(i, next) => {
             if let List::Nil = **next {
-                return SortedList::Cons(*i, SortedList::Nil);
+                return SortedList::Cons(*i, Box::new(SortedList::Nil));
             }
         }
     };
