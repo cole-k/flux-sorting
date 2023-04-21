@@ -1,0 +1,36 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0308]: mismatched types
+   --> src/sort.rs:149:41
+    |
+149 |             return SortedList::Cons(*i, next);
+    |                    ----------------     ^^^^ expected `Box<SortedList>`, found `&Box<List>`
+    |                    |
+    |                    arguments to this enum variant are incorrect
+    |
+    = note: expected struct `std::boxed::Box<sort::SortedList>`
+            found reference `&std::boxed::Box<sort::List>`
+note: tuple variant defined here
+   --> src/sort.rs:13:5
+    |
+13  |     Cons(i32, Box<SortedList>)
+    |     ^^^^
+
+warning: unreachable statement
+   --> src/sort.rs:152:5
+    |
+146 | /     match unsorted_list {
+147 | |         List::Nil => return SortedList::Nil,
+148 | |         List::Cons(i, next) => {
+149 | |             return SortedList::Cons(*i, next);
+150 | |         }
+151 | |     };
+    | |_____- any code following this `match` expression is unreachable, as all arms diverge
+152 |       let (l1, l2) = halve(unsorted_list);
+    |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ unreachable statement
+    |
+    = note: `#[warn(unreachable_code)]` on by default
+
+For more information about this error, try `rustc --explain E0308`.
+warning: `sorting` (bin "sorting") generated 1 warning
+error: could not compile `sorting` (bin "sorting") due to previous error; 1 warning emitted
