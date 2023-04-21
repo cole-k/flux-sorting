@@ -19,10 +19,11 @@ pub enum List {
 }
 
 impl<'a> FromIterator<&'a i32> for List {
+
+    #[flux::trusted]
     fn from_iter<T: IntoIterator<Item = &'a i32>>(iter: T) -> Self {
         let mut list = List::Nil;
-        let mut iter = iter.into_iter();
-        while let Some(i) = iter.next() {
+        for i in iter {
             list = List::Cons(*i, Box::new(list));
         }
         return list;
