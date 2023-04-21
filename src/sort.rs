@@ -17,7 +17,7 @@ pub enum SortedList {
 pub enum List {
     #[flux::variant(List[0])]
     Nil,
-    #[flux::variant((i32, Box<SortedList[@len]>) -> SortedList[len + 1])]
+    #[flux::variant((i32, Box<List[@len]>) -> List[len + 1])]
     Cons(i32, Box<List>),
 }
 
