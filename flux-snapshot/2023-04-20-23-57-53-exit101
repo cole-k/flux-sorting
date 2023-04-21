@@ -1,0 +1,25 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0308]: mismatched types
+   --> src/sort.rs:150:45
+    |
+150 |                 return SortedList::Cons(*i, SortedList::Nil);
+    |                        ----------------     ^^^^^^^^^^^^^^^ expected `Box<SortedList>`, found `SortedList`
+    |                        |
+    |                        arguments to this enum variant are incorrect
+    |
+    = note: expected struct `std::boxed::Box<sort::SortedList>`
+                 found enum `sort::SortedList`
+    = note: for more on the distinction between the stack and the heap, read https://doc.rust-lang.org/book/ch15-01-box.html, https://doc.rust-lang.org/rust-by-example/std/box.html, and https://doc.rust-lang.org/std/boxed/index.html
+note: tuple variant defined here
+   --> src/sort.rs:13:5
+    |
+13  |     Cons(i32, Box<SortedList>)
+    |     ^^^^
+help: store this in the heap by calling `Box::new`
+    |
+150 |                 return SortedList::Cons(*i, Box::new(SortedList::Nil));
+    |                                             +++++++++               +
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `sorting` (bin "sorting") due to previous error

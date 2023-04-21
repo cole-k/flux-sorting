@@ -146,7 +146,9 @@ pub fn merge_sort(unsorted_list: &List) -> SortedList {
     match unsorted_list {
         List::Nil => return SortedList::Nil,
         List::Cons(i, next) => {
-            return SortedList::Cons(*i, next);
+            if let List::Nil = **next {
+                return SortedList::Cons(*i, SortedList::Nil);
+            }
         }
     };
     let (l1, l2) = halve(unsorted_list);
