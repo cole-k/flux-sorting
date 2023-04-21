@@ -37,13 +37,29 @@ fn insort(n: i32, list: SortedList) -> SortedList {
    }
 }
 
-#[flux::sig(fn(Vec<i32>) -> SortedList)]
-fn sort(unsorted_vec: Vec<i32>) -> SortedList {
+#[flux::sig(fn(SortedList[@k1], SortedList[@k2]) -> SortedList[min(k1, k2)])]
+fn merge(list1: SortedList, list2: SortedList) -> SortedList {
+    match (list1, list2) {
+        (SortedList::Nil, SortedList::Nil) => SortedList::Nil,
+        (SortedList::Cons(k1, next1), SortedList::Nil) => SortedList::Cons(k1, next1),
+        (SortedList::Nil, SortedList::Cons(k2, next2)) => SortedList::Cons(k2, next2),
+        (SortedList::Cons(k1, next1), SortedList::Cons(k2, next2)) => {
+            if k1 <= k2 {
+                SortedList::Cons(k1, Box::new(merge(*next1, SortedList::Cons(k2, next2))))
+            } else {
+                SortedList::Cons(k2, Box::new(merge(SortedList::Cons(k1, next1), *next2)))
+            }
+        }
+    }
+}
+
+#[flux::sig(fn(&Vec<i32>) -> SortedList)]
+pub fn insertion_sort(unsorted_vec: &Vec<i32>) -> SortedList {
     let mut sorted_list = SortedList::Nil;
     for i in unsorted_vec {
-        sorted_list = insort(i, sorted_list);
+        sorted_list = insort(*i, sorted_list);
     }
-    return SortedList::Cons(3, Box::new(sorted_list));
+    sorted_list
 }
 
 #[flux::trusted]

@@ -1,0 +1,27 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: function `make_range` is never used
+  --> src/sort.rs:17:8
+   |
+17 | pub fn make_range(lo: i32, hi: i32) -> SortedList {
+   |        ^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: function `merge` is never used
+  --> src/sort.rs:41:4
+   |
+41 | fn merge(list1: SortedList, list2: SortedList) -> SortedList {
+   |    ^^^^^
+
+error[FLUX]: unsupported statement
+  --> src/main.rs:10:24
+   |
+10 |     let some_numbers = vec!(5, 12, 5, 2, 3, 1, 9, 2, 10);
+   |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = note: unsupported rvalue `SizeOf([i32; 9])`
+   = note: this error originates in the macro `vec` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+warning: `sorting` (bin "sorting") generated 2 warnings
+error: could not compile `sorting` (bin "sorting") due to previous error; 2 warnings emitted
