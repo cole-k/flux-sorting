@@ -72,7 +72,7 @@ fn insort(n: i32, list: SortedList) -> SortedList {
 pub fn insertion_sort(unsorted_list: &List) -> SortedList {
     match unsorted_list {
         List::Nil => SortedList::Nil,
-        List::Cons(i, next) => insort(i, insertion_sort(next)),
+        List::Cons(i, next) => insort(*i, insertion_sort(next)),
     }
 }
 
