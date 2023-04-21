@@ -1,0 +1,23 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[FLUX]: precondition might not hold
+  --> src/insertion_sort.rs:13:9
+   |
+13 |         SortedList::Cons(lo, Box::new(SortedList::Nil))
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[FLUX]: unsupported statement
+  --> src/insertion_sort.rs:21:14
+   |
+21 |     println!("printing list");
+   |              ^^^^^^^^^^^^^^^
+   |
+   = note: unsupported constant `const _`
+
+error[FLUX]: precondition might not hold
+  --> src/insertion_sort.rs:36:16
+   |
+36 |     let _two = SortedList::Cons(2, Box::new(_one));
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: could not compile `sorting` (bin "sorting") due to 3 previous errors
