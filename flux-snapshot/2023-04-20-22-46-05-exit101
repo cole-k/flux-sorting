@@ -1,0 +1,11 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[FLUX]: cannot resolve `List`
+  --> src/sort.rs:88:17
+   |
+88 | #[flux::sig(fn(&List) -> SortedList)]
+   |                 ^^^^
+   |
+   = help: flux can only resolve a path if it is present in the definition being refined
+
+error: could not compile `sorting` (bin "sorting") due to previous error

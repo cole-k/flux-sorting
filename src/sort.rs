@@ -13,6 +13,22 @@ pub enum SortedList {
     Cons(i32, Box<SortedList>)
 }
 
+pub enum List {
+    Nil,
+    Cons(i32, Box<List>),
+}
+
+impl<'a> FromIterator<&'a i32> for List {
+    fn from_iter<T: IntoIterator<Item = &'a i32>>(iter: T) -> Self {
+        let mut list = List::Nil;
+        for i in iter {
+            list = List::Cons(*i, Box::new(list));
+        }
+        return list;
+    }
+}
+
+#[allow(dead_code)]
 #[flux::sig(fn(lo: i32, hi: i32{lo <= hi && hi <= i32::MAX}) -> SortedList[lo])]
 pub fn make_range(lo: i32, hi: i32) -> SortedList {
     if lo == hi {
@@ -37,10 +53,12 @@ fn insort(n: i32, list: SortedList) -> SortedList {
    }
 }
 
-#[flux::sig(fn(&[i32]) -> SortedList)]
-pub fn insertion_sort(unsorted_slice: &[i32]) -> SortedList {
+#[flux::sig(fn(&List) -> SortedList)]
+pub fn insertion_sort(unsorted_list: &List) -> SortedList {
+    let mut list = unsorted_list;
     let mut sorted_list = SortedList::Nil;
-    for i in unsorted_slice {
+    while let List::Cons(i, next) = list {
+        list = next;
         sorted_list = insort(*i, sorted_list);
     }
     sorted_list
@@ -67,7 +85,7 @@ fn unsafe_head(slice: &[i32]) -> i32 {
     slice[0]
 }
 
-#[flux::sig(fn(&[i32]) -> SortedList)]
+#[flux::sig(fn(&List) -> SortedList)]
 pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
     if unsorted_slice.is_empty() {
         return SortedList::Nil;
@@ -82,7 +100,7 @@ pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
 }
 
 #[flux::trusted]
-pub fn print_list(mut l: &SortedList) {
+pub fn print_sorted_list(mut l: &SortedList) {
     println!("printing list");
     while let SortedList::Cons(v, next) = l {
         l = next;
