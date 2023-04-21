@@ -6,7 +6,7 @@ enum DescendingList {
     Cons(u32, Box<DescendingList>)
 }
 
-#[flux::sig((hi: u32, lo: u32{lo <= hi}) -> DescendingList[hi])]
+#[flux::sig(fn(hi: u32, lo: u32{lo <= hi}) -> DescendingList[hi])]
 fn make_range(hi: u32, lo: u32) -> DescendingList {
     if hi == lo {
         DescendingList::Cons(hi, Box::new(DescendingList::Nil))
