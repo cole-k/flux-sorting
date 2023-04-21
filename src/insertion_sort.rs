@@ -1,4 +1,4 @@
-#[flux::refined_by(k: int)]
+#[flux::refined_by(min: int)]
 #[derive(Debug)]
 pub enum SortedList {
     #[flux::variant(SortedList[i32::MAX])]
@@ -15,6 +15,11 @@ pub fn make_range(lo: i32, hi: i32) -> SortedList {
         let bigger_values = make_range(lo + 1, hi);
         SortedList::Cons(lo, Box::new(bigger_values))
     }
+}
+
+#[flux::sig(fn(i32[@n], list: SortedList[@k]) -> SortedList{v: v <= k && v <= n})]
+fn insort(n: i32, list: SortedList) -> SortedList {
+    SortedList::Nil
 }
 
 #[flux::trusted]

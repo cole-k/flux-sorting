@@ -1,0 +1,32 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: unused variable: `n`
+  --> src/insertion_sort.rs:21:11
+   |
+21 | fn insort(n: i32, list: SortedList) -> SortedList {
+   |           ^ help: if this is intentional, prefix it with an underscore: `_n`
+   |
+   = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `list`
+  --> src/insertion_sort.rs:21:19
+   |
+21 | fn insort(n: i32, list: SortedList) -> SortedList {
+   |                   ^^^^ help: if this is intentional, prefix it with an underscore: `_list`
+
+warning: function `insort` is never used
+  --> src/insertion_sort.rs:21:4
+   |
+21 | fn insort(n: i32, list: SortedList) -> SortedList {
+   |    ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+error[FLUX]: postcondition might not hold
+  --> src/insertion_sort.rs:22:5
+   |
+22 |     SortedList::Nil
+   |     ^^^^^^^^^^^^^^^
+
+warning: `sorting` (bin "sorting") generated 3 warnings
+error: could not compile `sorting` (bin "sorting") due to previous error; 3 warnings emitted
