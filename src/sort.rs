@@ -85,7 +85,7 @@ fn unsafe_head(slice: &[i32]) -> i32 {
     slice[0]
 }
 
-#[flux::sig(fn(&List) -> SortedList)]
+#[flux::sig(fn(&[i32]) -> SortedList)]
 pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
     if unsorted_slice.is_empty() {
         return SortedList::Nil;
