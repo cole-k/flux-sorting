@@ -23,7 +23,7 @@ fn insort(n: i32, list: SortedList) -> SortedList {
        SortedList::Nil => SortedList::Cons(n, Box::new(SortedList::Nil)),
        SortedList::Cons(k, next) => {
            if n > k {
-               insort(n, *next)
+               SortedList::Cons(k, Box::new(insort(n, *next)))
            } else {
                SortedList::Cons(n, Box::new(SortedList::Cons(k, next)))
            }

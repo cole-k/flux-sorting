@@ -1,0 +1,18 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: function `insort` is never used
+  --> src/insertion_sort.rs:21:4
+   |
+21 | fn insort(n: i32, list: SortedList) -> SortedList {
+   |    ^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+error[FLUX]: precondition might not hold
+  --> src/insertion_sort.rs:26:16
+   |
+26 |                SortedList::Cons(k, Box::new(insort(n, *next)))
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `sorting` (bin "sorting") generated 1 warning
+error: could not compile `sorting` (bin "sorting") due to previous error; 1 warning emitted
