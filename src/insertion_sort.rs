@@ -1,3 +1,4 @@
+#![feature(custom_inner_attributes)]
 #![flux::defs {
     fn min(x: int, y: int) {
         if x < y { x } else { y }
