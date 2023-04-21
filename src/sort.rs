@@ -37,6 +37,15 @@ fn insort(n: i32, list: SortedList) -> SortedList {
    }
 }
 
+#[flux::sig(fn(&[i32]) -> SortedList)]
+pub fn insertion_sort(unsorted_slice: &[i32]) -> SortedList {
+    let mut sorted_list = SortedList::Nil;
+    for i in unsorted_slice {
+        sorted_list = insort(*i, sorted_list);
+    }
+    sorted_list
+}
+
 #[flux::sig(fn(SortedList[@k1], SortedList[@k2]) -> SortedList[min(k1, k2)])]
 fn merge(list1: SortedList, list2: SortedList) -> SortedList {
     match (list1, list2) {
@@ -53,13 +62,13 @@ fn merge(list1: SortedList, list2: SortedList) -> SortedList {
     }
 }
 
-#[flux::sig(fn(&Vec<i32>) -> SortedList)]
-pub fn insertion_sort(unsorted_vec: &Vec<i32>) -> SortedList {
-    let mut sorted_list = SortedList::Nil;
-    for i in unsorted_vec {
-        sorted_list = insort(*i, sorted_list);
+#[flux::sig(fn(&[i32]) -> SortedList)]
+pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
+    if unsorted_slice.is_empty() {
+        return SortedList::Nil;
     }
-    sorted_list
+    let (first_half, second_half) = unsorted_slice.split_at(unsorted_slice.len() / 2);
+    merge(merge_sort(first_half), merge_sort(second_half))
 }
 
 #[flux::trusted]
