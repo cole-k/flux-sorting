@@ -76,40 +76,86 @@ pub fn insertion_sort(unsorted_list: &List) -> SortedList {
     }
 }
 
-// #[flux::sig(fn(SortedList[@k1], SortedList[@k2]) -> SortedList[min(k1, k2)])]
-// fn merge(list1: SortedList, list2: SortedList) -> SortedList {
-//     match (list1, list2) {
-//         (SortedList::Nil, SortedList::Nil) => SortedList::Nil,
-//         (SortedList::Cons(k1, next1), SortedList::Nil) => SortedList::Cons(k1, next1),
-//         (SortedList::Nil, SortedList::Cons(k2, next2)) => SortedList::Cons(k2, next2),
-//         (SortedList::Cons(k1, next1), SortedList::Cons(k2, next2)) => {
-//             if k1 <= k2 {
-//                 SortedList::Cons(k1, Box::new(merge(*next1, SortedList::Cons(k2, next2))))
-//             } else {
-//                 SortedList::Cons(k2, Box::new(merge(SortedList::Cons(k1, next1), *next2)))
-//             }
-//         }
-//     }
-// }
-//
-// #[flux::trusted]
-// fn unsafe_head(slice: &[i32]) -> i32 {
-//     slice[0]
-// }
-//
-// #[flux::sig(fn(&[i32]) -> SortedList)]
-// pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
-//     if unsorted_slice.is_empty() {
-//         return SortedList::Nil;
-//     }
-//     // Needed to prevent an infinite recursion when we split and get an empty
-//     // list and the same list.
-//     if unsorted_slice.len() == 1 {
-//         return SortedList::Cons(unsafe_head(unsorted_slice), Box::new(SortedList::Nil));
-//     }
-//     let (first_half, second_half) = unsorted_slice.split_at(unsorted_slice.len() / 2);
-//     merge(merge_sort(first_half), merge_sort(second_half))
-// }
+#[flux::sig(fn(SortedList[@k1, @len1], SortedList[@k2, @len2]) -> SortedList[min(k1, k2), len1 + len2])]
+fn merge(list1: SortedList, list2: SortedList) -> SortedList {
+    match (list1, list2) {
+        (SortedList::Nil, SortedList::Nil) => SortedList::Nil,
+        (SortedList::Cons(k1, next1), SortedList::Nil) => SortedList::Cons(k1, next1),
+        (SortedList::Nil, SortedList::Cons(k2, next2)) => SortedList::Cons(k2, next2),
+        (SortedList::Cons(k1, next1), SortedList::Cons(k2, next2)) => {
+            if k1 <= k2 {
+                SortedList::Cons(k1, Box::new(merge(*next1, SortedList::Cons(k2, next2))))
+            } else {
+                SortedList::Cons(k2, Box::new(merge(SortedList::Cons(k1, next1), *next2)))
+            }
+        }
+    }
+}
+
+
+#[flux::sig(fn(&List[@n]) -> usize[n])]
+pub fn len(list: &List) -> usize {
+    match list {
+        List::Nil => 0,
+        List::Cons(_, next) => 1 + len(next),
+    }
+}
+
+#[flux::sig(fn(&List[@n]) -> {(List[#m1], List[#m2]) | m1 + m2 == n && m1 - m2 <= 1})]
+pub fn halve(list: &List) -> (List, List) {
+    let mut i = len(list);
+    let midpoint = i / 2;
+    let mut l1 = List::Nil;
+    let mut l2 = List::Nil;
+    while i > midpoint {
+        match list {
+            List::Nil => {
+                return impossible(0);
+            }
+            List::Cons(k, next) => {
+                l1 = List::Cons(*k, Box::new(l1));
+            }
+        }
+        i -= 1;
+    }
+    while i > 0 {
+        match list {
+            List::Nil => {
+                return impossible(0);
+            }
+            List::Cons(k, next) => {
+                l2 = List::Cons(*k, Box::new(l2));
+            }
+        }
+        i -= 1;
+    }
+    (l1, l2)
+}
+
+#[flux::sig(fn(usize{v: false}) -> {(List, List) | false})]
+fn impossible(n: usize) -> (List, List) {
+    unreachable!()
+}
+
+#[flux::sig(fn(&List[@n]) -> SortedList[#k, n])]
+pub fn merge_sort(unsorted_list: &List) -> SortedList {
+    // Handle base cases
+    match unsorted_list {
+        List::Nil => return SortedList::Nil,
+        List::Cons(i, next) => {
+           match **next {
+               List::Nil => return SortedList::Cons(*i, Box::new(SortedList::Nil)),
+               List::Cons(_,_) => (),
+           }
+        }
+    };
+    panic!()
+    // if unsorted_list.len() == 1 {
+    //     return SortedList::Cons(unsafe_head(unsorted_list), Box::new(SortedList::Nil));
+    // }
+    // let (first_half, second_half) = unsorted_list.split_at(unsorted_list.len() / 2);
+    // merge(merge_sort(first_half), merge_sort(second_half))
+}
 
 #[flux::trusted]
 pub fn print_sorted_list(mut l: &SortedList) {

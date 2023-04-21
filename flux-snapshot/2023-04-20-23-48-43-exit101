@@ -1,0 +1,68 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+warning: unused variable: `next`
+   --> src/sort.rs:115:27
+    |
+115 |             List::Cons(k, next) => {
+    |                           ^^^^ help: if this is intentional, prefix it with an underscore: `_next`
+    |
+    = note: `#[warn(unused_variables)]` on by default
+
+warning: unused variable: `next`
+   --> src/sort.rs:126:27
+    |
+126 |             List::Cons(k, next) => {
+    |                           ^^^^ help: if this is intentional, prefix it with an underscore: `_next`
+
+warning: unused variable: `n`
+   --> src/sort.rs:136:15
+    |
+136 | fn impossible(n: usize) -> (List, List) {
+    |               ^ help: if this is intentional, prefix it with an underscore: `_n`
+
+warning: function `merge` is never used
+  --> src/sort.rs:80:4
+   |
+80 | fn merge(list1: SortedList, list2: SortedList) -> SortedList {
+   |    ^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: function `len` is never used
+  --> src/sort.rs:97:8
+   |
+97 | pub fn len(list: &List) -> usize {
+   |        ^^^
+
+warning: function `halve` is never used
+   --> src/sort.rs:105:8
+    |
+105 | pub fn halve(list: &List) -> (List, List) {
+    |        ^^^^^
+
+warning: function `impossible` is never used
+   --> src/sort.rs:136:4
+    |
+136 | fn impossible(n: usize) -> (List, List) {
+    |    ^^^^^^^^^^
+
+warning: function `merge_sort` is never used
+   --> src/sort.rs:141:8
+    |
+141 | pub fn merge_sort(unsorted_list: &List) -> SortedList {
+    |        ^^^^^^^^^^
+
+error[FLUX]: postcondition might not hold
+   --> src/sort.rs:133:2
+    |
+133 | }
+    |  ^
+
+error[FLUX]: precondition might not hold
+   --> src/sort.rs:147:36
+    |
+147 |                List::Nil => return SortedList::Cons(*i, Box::new(SortedList::Nil)),
+    |                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `sorting` (bin "sorting") generated 8 warnings
+error: could not compile `sorting` (bin "sorting") due to 2 previous errors; 8 warnings emitted
