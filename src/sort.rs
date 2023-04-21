@@ -111,7 +111,8 @@ pub fn halve(list: &List) -> (List, List) {
     while i > midpoint {
         match current {
             List::Nil => {
-                return impossible();
+                unreachable!();
+                // return impossible();
             }
             List::Cons(k, next) => {
                 l1 = List::Cons(*k, Box::new(l1));
@@ -123,7 +124,8 @@ pub fn halve(list: &List) -> (List, List) {
     while i > 0 {
         match current {
             List::Nil => {
-                return impossible();
+                unreachable!();
+                // return impossible();
             }
             List::Cons(k, next) => {
                 l2 = List::Cons(*k, Box::new(l2));
