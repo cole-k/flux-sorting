@@ -135,6 +135,7 @@ pub fn halve(list: &List) -> (List, List) {
     (l1, l2)
 }
 
+#[flux::trusted]
 #[flux::sig(fn() -> {(List, List) | false})]
 fn impossible() -> (List, List) {
     unreachable!()
