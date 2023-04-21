@@ -1,0 +1,10 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0614]: type `i32` cannot be dereferenced
+  --> src/sort.rs:89:40
+   |
+89 |         sorted_list = SortedList::Cons(*i, Box::new(sorted_list));
+   |                                        ^^
+
+For more information about this error, try `rustc --explain E0614`.
+error: could not compile `sorting` (bin "sorting") due to previous error
