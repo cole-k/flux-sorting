@@ -1,0 +1,19 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0382]: use of partially moved value: `list`
+  --> src/insertion_sort.rs:28:45
+   |
+24 |        SortedList::Cons(k, next) => {
+   |                            ---- value partially moved here
+...
+28 |                SortedList::Cons(n, Box::new(list))
+   |                                             ^^^^ value used here after partial move
+   |
+   = note: partial move occurs because value has type `std::boxed::Box<insertion_sort::SortedList>`, which does not implement the `Copy` trait
+help: borrow this binding in the pattern to avoid moving the value
+   |
+24 |        SortedList::Cons(k, ref next) => {
+   |                            +++
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `sorting` (bin "sorting") due to previous error
