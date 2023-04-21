@@ -36,10 +36,10 @@ impl<'a> FromIterator<&'a i32> for List {
 #[flux::sig(fn(hi: i32, lo: i32{lo <= hi && hi <= i32::MAX}) -> List[hi - lo])]
 pub fn make_descending_range(hi: i32, lo: i32) -> List {
     if hi == lo {
-        SortedList::Cons(hi, Box::new(SortedList::Nil))
+        List::Cons(hi, Box::new(List::Nil))
     } else {
         let smaller_values = make_descending_range(hi - 1, lo);
-        SortedList::Cons(hi, Box::new(bigger_values))
+        List::Cons(hi, Box::new(bigger_values))
     }
 }
 

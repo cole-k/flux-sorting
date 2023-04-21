@@ -1,0 +1,10 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0425]: cannot find value `bigger_values` in this scope
+  --> src/sort.rs:42:33
+   |
+42 |         List::Cons(hi, Box::new(bigger_values))
+   |                                 ^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `sorting` (bin "sorting") due to previous error
