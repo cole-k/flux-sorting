@@ -4,12 +4,12 @@
     }
 }]
 
-#[flux::refined_by(min: int)]
+#[flux::refined_by(min: int, len: int)]
 #[derive(Debug)]
 pub enum SortedList {
-    #[flux::variant(SortedList[i32::MAX])]
+    #[flux::variant(SortedList[i32::MAX, 0])]
     Nil,
-    #[flux::variant((i32[@k], Box<SortedList{v: v >= k}>) -> SortedList[k])]
+    #[flux::variant((i32[@k], Box<{SortedList[@v, @len] | v >= k}>) -> SortedList[k, len + 1])]
     Cons(i32, Box<SortedList>)
 }
 
@@ -33,7 +33,7 @@ impl<'a> FromIterator<&'a i32> for List {
     }
 }
 
-#[flux::sig(fn(hi: i32, lo: i32{lo <= hi && hi <= i32::MAX}) -> List[hi - lo])]
+#[flux::sig(fn(hi: i32, lo: i32{lo <= hi && hi <= i32::MAX}) -> List[1 + hi - lo])]
 pub fn make_descending_range(hi: i32, lo: i32) -> List {
     if hi == lo {
         List::Cons(hi, Box::new(List::Nil))
@@ -44,7 +44,7 @@ pub fn make_descending_range(hi: i32, lo: i32) -> List {
 }
 
 #[allow(dead_code)]
-#[flux::sig(fn(lo: i32, hi: i32{lo <= hi && hi <= i32::MAX}) -> SortedList[lo])]
+#[flux::sig(fn(lo: i32, hi: i32{lo <= hi && hi <= i32::MAX}) -> SortedList[lo, 1 + hi - lo])]
 pub fn make_ascending_range(lo: i32, hi: i32) -> SortedList {
     if lo == hi {
         SortedList::Cons(lo, Box::new(SortedList::Nil))
@@ -54,7 +54,7 @@ pub fn make_ascending_range(lo: i32, hi: i32) -> SortedList {
     }
 }
 
-#[flux::sig(fn(i32[@n], list: SortedList[@k]) -> SortedList[min(n, k)])]
+#[flux::sig(fn(i32[@n], list: SortedList[@k, @len]) -> SortedList[min(n, k), len + 1])]
 fn insort(n: i32, list: SortedList) -> SortedList {
    match list {
        SortedList::Nil => SortedList::Cons(n, Box::new(SortedList::Nil)),
@@ -68,7 +68,7 @@ fn insort(n: i32, list: SortedList) -> SortedList {
    }
 }
 
-#[flux::sig(fn(&List) -> SortedList)]
+#[flux::sig(fn(&List[@n]) -> SortedList[#k, n])]
 pub fn insertion_sort(unsorted_list: &List) -> SortedList {
     let mut list = unsorted_list;
     let mut sorted_list = SortedList::Nil;
@@ -79,40 +79,40 @@ pub fn insertion_sort(unsorted_list: &List) -> SortedList {
     sorted_list
 }
 
-#[flux::sig(fn(SortedList[@k1], SortedList[@k2]) -> SortedList[min(k1, k2)])]
-fn merge(list1: SortedList, list2: SortedList) -> SortedList {
-    match (list1, list2) {
-        (SortedList::Nil, SortedList::Nil) => SortedList::Nil,
-        (SortedList::Cons(k1, next1), SortedList::Nil) => SortedList::Cons(k1, next1),
-        (SortedList::Nil, SortedList::Cons(k2, next2)) => SortedList::Cons(k2, next2),
-        (SortedList::Cons(k1, next1), SortedList::Cons(k2, next2)) => {
-            if k1 <= k2 {
-                SortedList::Cons(k1, Box::new(merge(*next1, SortedList::Cons(k2, next2))))
-            } else {
-                SortedList::Cons(k2, Box::new(merge(SortedList::Cons(k1, next1), *next2)))
-            }
-        }
-    }
-}
-
-#[flux::trusted]
-fn unsafe_head(slice: &[i32]) -> i32 {
-    slice[0]
-}
-
-#[flux::sig(fn(&[i32]) -> SortedList)]
-pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
-    if unsorted_slice.is_empty() {
-        return SortedList::Nil;
-    }
-    // Needed to prevent an infinite recursion when we split and get an empty
-    // list and the same list.
-    if unsorted_slice.len() == 1 {
-        return SortedList::Cons(unsafe_head(unsorted_slice), Box::new(SortedList::Nil));
-    }
-    let (first_half, second_half) = unsorted_slice.split_at(unsorted_slice.len() / 2);
-    merge(merge_sort(first_half), merge_sort(second_half))
-}
+// #[flux::sig(fn(SortedList[@k1], SortedList[@k2]) -> SortedList[min(k1, k2)])]
+// fn merge(list1: SortedList, list2: SortedList) -> SortedList {
+//     match (list1, list2) {
+//         (SortedList::Nil, SortedList::Nil) => SortedList::Nil,
+//         (SortedList::Cons(k1, next1), SortedList::Nil) => SortedList::Cons(k1, next1),
+//         (SortedList::Nil, SortedList::Cons(k2, next2)) => SortedList::Cons(k2, next2),
+//         (SortedList::Cons(k1, next1), SortedList::Cons(k2, next2)) => {
+//             if k1 <= k2 {
+//                 SortedList::Cons(k1, Box::new(merge(*next1, SortedList::Cons(k2, next2))))
+//             } else {
+//                 SortedList::Cons(k2, Box::new(merge(SortedList::Cons(k1, next1), *next2)))
+//             }
+//         }
+//     }
+// }
+//
+// #[flux::trusted]
+// fn unsafe_head(slice: &[i32]) -> i32 {
+//     slice[0]
+// }
+//
+// #[flux::sig(fn(&[i32]) -> SortedList)]
+// pub fn merge_sort(unsorted_slice: &[i32]) -> SortedList {
+//     if unsorted_slice.is_empty() {
+//         return SortedList::Nil;
+//     }
+//     // Needed to prevent an infinite recursion when we split and get an empty
+//     // list and the same list.
+//     if unsorted_slice.len() == 1 {
+//         return SortedList::Cons(unsafe_head(unsorted_slice), Box::new(SortedList::Nil));
+//     }
+//     let (first_half, second_half) = unsorted_slice.split_at(unsorted_slice.len() / 2);
+//     merge(merge_sort(first_half), merge_sort(second_half))
+// }
 
 #[flux::trusted]
 pub fn print_sorted_list(mut l: &SortedList) {
