@@ -1,16 +1,16 @@
 #[flux::refined_by(k: int)]
 #[derive(Debug)]
 pub enum SortedList {
-    #[flux::variant(SortedList[2147483647])]
+    #[flux::variant(SortedList[i32::MAX])]
     Nil,
     #[flux::variant((i32[@k], Box<SortedList{v: v >= k}>) -> SortedList[k])]
     Cons(i32, Box<SortedList>)
 }
 
-#[flux::sig(fn(lo: i32, hi: i32{lo <= hi}) -> SortedList[lo])]
+#[flux::sig(fn(lo: i32, hi: i32{lo <= hi && hi <= i32::MAX}) -> SortedList[lo])]
 pub fn make_range(lo: i32, hi: i32) -> SortedList {
     if lo == hi {
-        SortedList::Cons(hi, Box::new(SortedList::Nil))
+        SortedList::Cons(lo, Box::new(SortedList::Nil))
     } else {
         let bigger_values = make_range(lo + 1, hi);
         SortedList::Cons(lo, Box::new(bigger_values))

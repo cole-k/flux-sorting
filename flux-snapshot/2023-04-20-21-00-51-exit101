@@ -1,0 +1,11 @@
+    Updating crates.io index
+   Compiling flux-attrs v0.1.0 (/Users/cole/git/flux/flux-attrs)
+   Compiling flux-attrs-proc-macros v0.1.0 (/Users/cole/git/flux/flux-attrs-proc-macros)
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[FLUX]: precondition might not hold
+  --> src/insertion_sort.rs:37:16
+   |
+37 |     let _two = SortedList::Cons(2, Box::new(_one));
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: could not compile `sorting` (bin "sorting") due to previous error
