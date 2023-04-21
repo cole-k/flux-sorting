@@ -84,7 +84,7 @@ pub fn insertion_sort(unsorted_list: &List) -> SortedList {
     // }
     let mut current = unsorted_list;
     let mut sorted_list = SortedList::Nil;
-    while let List::Cons(i, next) = current {
+    while let Some(i, next) = list_next(current) {
         current = next;
         sorted_list = SortedList::Cons(*i, Box::new(sorted_list));
     }

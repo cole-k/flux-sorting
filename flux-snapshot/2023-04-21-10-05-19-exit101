@@ -1,0 +1,20 @@
+    Updating crates.io index
+    Checking sorting v0.1.0 (/Users/cole/scratch/flux/flux-demos/sorting)
+error[E0023]: this pattern has 2 fields, but the corresponding tuple variant has 1 field
+   --> src/sort.rs:87:20
+    |
+87  |     while let Some(i, next) = list_next(current) {
+    |                    ^  ^^^^ expected 1 field, found 2
+    |
+   ::: /Users/cole/.rustup/toolchains/nightly-2023-04-05-aarch64-apple-darwin/lib/rustlib/src/rust/library/core/src/option.rs:572:56
+    |
+572 |     Some(#[stable(feature = "rust1", since = "1.0.0")] T),
+    |                                                        - tuple variant has 1 field
+    |
+help: missing parentheses
+    |
+87  |     while let Some((i, next)) = list_next(current) {
+    |                    +       +
+
+For more information about this error, try `rustc --explain E0023`.
+error: could not compile `sorting` (bin "sorting") due to previous error
