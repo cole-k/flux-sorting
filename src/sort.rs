@@ -33,6 +33,14 @@ impl<'a> FromIterator<&'a i32> for List {
     }
 }
 
+#[flux::sig(fn(&List[@n]) -> Option<i32, &List[n-1]>)]
+pub fn list_next(list: &List) -> Option<i32, &List> {
+    match list {
+        List::Nil => None,
+        List::Cons(i, next) => Some((*i, next)),
+    }
+}
+
 #[flux::sig(fn(hi: i32, lo: i32{lo <= hi && hi <= i32::MAX}) -> List[1 + hi - lo])]
 pub fn make_descending_range(hi: i32, lo: i32) -> List {
     if hi == lo {
