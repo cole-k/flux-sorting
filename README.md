@@ -2,7 +2,9 @@
 This repo is a demo of [flux](https://github.com/flux-rs/flux) on some sorting algorithms.
 
 I used [flux-snapshot](https://github.com/cole-k/flux-snapshot) while implementing
-them in order to profile interesting errors.
+them in order to profile interesting errors. 
+Refer to [flux-snapshot](./flux-snapshot) and the commit history for snapshots.
+I tagged interesting commits with a short message as to why they were interesting.
 
 As I recall, only insertion sort is proved for both preserving length and order.
 I ran into issues proving that merge sort preserves length. But I make no guarantees
